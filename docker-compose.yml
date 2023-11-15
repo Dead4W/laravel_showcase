@@ -1,0 +1,22 @@
+services:
+    db:
+        image: postgres
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_PASSWORD=github_test
+            - POSTGRES_USER=github_test
+            - POSTGRES_DB=github_test
+
+    php:
+        image: webdevops/php-nginx-dev:8.1
+        restart: always
+        volumes:
+            - ./:/app
+        working_dir: /app
+        environment:
+            WEB_DOCUMENT_ROOT: /app/public/
+            PHP_DEBUGGER: xdebug
+            XDEBUG_CLIENT_HOST: host.docker.internal
+        ports:
+            - 80:80
