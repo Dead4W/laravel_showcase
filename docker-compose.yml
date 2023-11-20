@@ -17,6 +17,9 @@ services:
         environment:
             WEB_DOCUMENT_ROOT: /app/public/
             PHP_DEBUGGER: xdebug
+            XDEBUG_MODE: debug
+            XDEBUG_IDE_KEY: PHPSTORM
+            XDEBUG_START_WITH_REQUEST: 1
             XDEBUG_CLIENT_HOST: host.docker.internal
         ports:
             - 80:80
