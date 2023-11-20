@@ -2,13 +2,14 @@
 
 namespace App\Common\Http\Resources;
 
+use App\Common\DeepJsonResource\DeepJsonResource;
 use Illuminate\Http\Request;
 
-class PageResource extends BaseJsonResource
+class PageResource extends DeepJsonResource
 {
     protected function getAllowFields(): array
     {
-        return ['*'];
+        return self::ALL_FIELDS;
     }
 
     public function toArray(Request $request)
@@ -20,7 +21,7 @@ class PageResource extends BaseJsonResource
                 'limit' => $this->resource->perPage(),
                 'total' => $this->resource->total(),
             ],
-            'data' => $this->valueToSimpleType($this->resource->items()),
+            'data' => $this->transformer->valueToSimpleType($this->resource, $this->castsMap),
         ];
     }
 }

@@ -2,13 +2,12 @@
 
 namespace App\User\Controllers;
 
+use App\Common\DeepJsonResource\DeepJsonResource;
 use App\Common\Http\Controllers\Controller;
-use App\Common\Http\Resources\BaseJsonResource;
 use App\Common\Http\Resources\ResponseResource;
 use App\User\Models\User;
 use App\User\Requests\LoginRequest;
 use App\User\Requests\RegisterRequest;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\NewAccessToken;
@@ -16,7 +15,7 @@ use Laravel\Sanctum\NewAccessToken;
 class AuthController extends Controller
 {
 
-    public function register(RegisterRequest $request): BaseJsonResource {
+    public function register(RegisterRequest $request): DeepJsonResource {
         $user = User::create([
             'name' => $request->validated('name'),
             'email' => $request->validated('email'),

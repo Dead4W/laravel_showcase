@@ -1,4 +1,4 @@
-BaseJsonResource дает несколько фичей для разработчиков и он достаточно маленький (порядка ~170 строк)
+DeepJsonResource дает несколько фичей для разработчиков и он достаточно маленький (порядка ~170 строк)
 
 1) Более удобное использование, если обычно приходится делать в ресурсе такую конструкцию
 ```php
@@ -14,7 +14,7 @@ class CarResource extends ResourceCollection {
 
 То теперь это можно делать более простой конструкцией, вот пример
 ```php
-class CarResource extends BaseJsonResource {
+class CarResource extends DeepJsonResource {
     protected function getAllowFields(): array
     {
         return ['uuid', 'company', 'model_family', 'model_number'];
@@ -23,15 +23,20 @@ class CarResource extends BaseJsonResource {
 ```
 
 2) Если в `getAllowFields` будет указан relation, то в таком случае он так же будет приведет к своему ресурсу, что намного упрощает выдачу глубоких данных.
-3) BaseJsonResource ограничивает юзера. Если у сущности есть relation например Car->user, при обычном ресурсе без предварительной подгрузки через `with(['user'])` до возвращения все relation подгружались в цикле что било по производительности. Теперь в таком случае эта зависимость будет отсутстовать (при желании можно отдавать Exception).
+3) DeepJsonResource ограничивает юзера. Если у сущности есть relation например Car->user, при обычном ресурсе без предварительной подгрузки через `with(['user'])` до возвращения все relation подгружались в цикле что било по производительности. Теперь в таком случае эта зависимость будет отсутстовать (при желании можно отдавать Exception).
 
 ---
 
-Карта `Model => Resource` задается в `BaseJsonResource::AUTO_CAST_CLASS_TO_RESOURCES_MAP`
+Карта `Model => Resource` задается в `AppServiceProvider` при регистрации Transformer
 ```php
-protected const AUTO_CAST_CLASS_TO_RESOURCES_MAP = [
-    User::class => UserResource::class,
-];
+$this->app->singleton(DeepJsonTransformer::class, function () {
+    return new DeepJsonTransformer(
+        castsMap: [
+            Car::class => CarResource::class,
+            User::class => UserResource::class,
+        ]
+    );
+});
 ```
 
 либо в конструкторе, например

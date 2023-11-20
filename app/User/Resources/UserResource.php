@@ -2,9 +2,9 @@
 
 namespace App\User\Resources;
 
-use App\Common\Http\Resources\BaseJsonResource;
+use App\Common\DeepJsonResource\DeepJsonResource;
 
-class UserResource extends BaseJsonResource
+class UserResource extends DeepJsonResource
 {
 
     protected function getAllowFields(): array

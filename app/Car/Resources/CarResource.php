@@ -2,9 +2,9 @@
 
 namespace App\Car\Resources;
 
-use App\Common\Http\Resources\BaseJsonResource;
+use App\Common\DeepJsonResource\DeepJsonResource;
 
-class CarResource extends BaseJsonResource
+class CarResource extends DeepJsonResource
 {
 
     protected function getAllowFields(): array
