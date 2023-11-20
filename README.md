@@ -3,17 +3,19 @@
    - Контроллеры, ресурсы и тд разделены по сущностям. Например UserController следует искать в `app/User/Controller`.
    - Общие абстрактные классы/контракты или хелперы находятся в `app/Common`
      - Все основные файлы фреймворка вынесены в `app/Common/Framework`
- - [Динамические ресурсы](app/Common/Http/Resources), если в обычном проекте нужно делать `return CarResource::collection($cars)` то тут можно вернуть `return new ResponseResource($cars)`
+ - [Динамические ресурсы](app/Common/DeepJsonResource), если в обычном проекте нужно делать `return CarResource::collection($cars)` то тут можно вернуть `return new ResponseResource($cars)`
    - Это дает стандартизацию ответов
    - Если $cars - это `PaginatorAbstract` то в таком случае автоматически прокинется информация о `current_page`, `last_page`, `limit`, `total`
    - Если у Car есть relation, то он также будет завернут в свой ресурс, например Car->user будет завернут в UserResource.
  - [Архитектура драйверов](app/Car)
-   - В `app/Car/` есть папки `Drivers` и `DriversCommon`, в них логика модульных фич. У каждой фичи есть контракт и описание
+   - У каждой фичи есть контракт и описание
    - У каждого драйвера свой набор фич
    - Все фичи по умолчанию должны вызываться в CarDriverOrchestrator, в нем менеджмент фичами. Например у драйвера может быть фича `OpenDoor` и `OpenDoors`, в зависимости от зависимого API. В таком случае в DriverOrchestrator у нас есть функция `openDoors(array $doorNumbers)` и внутри проверка на сущестование фичей.
 
 
 ### TODO list:
+ - ~~Упростить DeepJsonResource~~
+   - ~~Рефакторинг на упрощение~~
  - Дописать `CarDriverOrchestrator` для текущих фич
  - Дописать borrow/release для Car
    - Использовать `Semaphore`
@@ -23,6 +25,9 @@
    - Проверка занятых юзером машин
  - Добавить ещё пару фич для демонстрации, например `ApiFeature`
  - Сделать Unit тесты
+   - ~~На DeepJsonResource~~
+   - На Car
+   - На драйвер
  - Добавить `Actions` в Car и демки для них
  - Добавить работу с валютами, кошельками, деньгами у юзера
    - Создание кошельков RUB/USD
