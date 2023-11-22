@@ -14,7 +14,7 @@ time usage: ~0.83
 #### Производительность оптимизированной функции:
 ```
 peak memory usage: 146 MB
-time usage: ~0.38
+time usage: ~0.33
 ```
 
 ---

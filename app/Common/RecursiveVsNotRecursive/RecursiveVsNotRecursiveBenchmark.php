@@ -19,7 +19,7 @@ class RecursiveVsNotRecursiveBenchmark
         $start = microtime(true);
 
         // optimized not recursive peak memory usage: 146 MB
-        // optimized not recursive time usage: 0.38
+        // optimized not recursive time usage: 0.33
         // $this->arrayToFlattenPathsNotRecursive($tree);
 
         // recursive peak memory usage: 162.01 MB
@@ -52,15 +52,12 @@ class RecursiveVsNotRecursiveBenchmark
         $dirPathsPrecalc = '';
 
         $result = [];
-
         while (true) {
             $tmpTree = &$stackTrees[$stackTreeIndex];
             $dirPath = key($tmpTree);
-            $dirTree = current($tmpTree);
 
             if ($dirPath === null) {
                 $stackTreeIndex--;
-                array_pop($stackTrees);
                 array_pop($dirPaths);
                 $dirPathsPrecalc = implode('/', $dirPaths);
 
@@ -68,12 +65,12 @@ class RecursiveVsNotRecursiveBenchmark
                     break;
                 }
 
-                $tmpTree = &$stackTrees[$stackTreeIndex];
-                next($tmpTree);
+                next($stackTrees[$stackTreeIndex]);
 
                 continue;
             }
 
+            $dirTree = current($tmpTree);
             if ($dirTree === 'file') {
                 if ($dirPathsPrecalc === '') {
                     $result[] = $dirPath;
@@ -87,12 +84,9 @@ class RecursiveVsNotRecursiveBenchmark
 
             $dirPaths[] = $dirPath;
             $dirPathsPrecalc = implode('/', $dirPaths);
-            $stackTrees[] = &$dirTree;
             $stackTreeIndex++;
+            $stackTrees[$stackTreeIndex] = $dirTree;
 
-            unset($dirTree);
-            unset($dirPath);
-            unset($tmpTree);
         }
 
         return $result;
