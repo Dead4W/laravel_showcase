@@ -19,3 +19,5 @@ yarn-error.log
 /.vscode
 
 /_ide_helper_models.php
+
+app/Common/Framework/Console/Commands/TestCommand.php
