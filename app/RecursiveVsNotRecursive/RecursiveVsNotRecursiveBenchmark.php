@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\ResursiveVsNotRecursive;
+namespace App\RecursiveVsNotRecursive;
 
 class RecursiveVsNotRecursiveBenchmark
 {
