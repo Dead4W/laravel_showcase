@@ -1,3 +1,5 @@
+Так же [тестовое задание с переписанным кодом для ABCP](https://github.com/Dead4W/noda_soft_hr_test/tree/feature/ABCP-1-refactoring/php/v3)
+
 ### В этом проекте используется несколько интересных решений:
  - [Нестандартная Laravel структура файлов](app/Common)
    - Контроллеры, ресурсы и тд разделены по сущностям. Например UserController следует искать в `app/User/Controller`.
